@@ -1,30 +1,33 @@
 const mongoose = require("mongoose");
 
-var ClueSchema = new mongoose.Schema({
-    clueText : {
+var CluesSchema = new mongoose.Schema({
+    question : {
         type : String
     },
-    clueAnswer : {
+    answer : {
         type : String
     },
-    clueValue : {
+    value : {
+        type : Number
+    },
+    category : {
         type : String
     },
-    clueCategory : {
-        type : String
-    },
-    clueCorrect : {
+    correct : {
         type : Boolean
     },
-    clueTags : {
+    tags : {
         type : Array
     },
     gameID : {
-        type : Number
+        type : String
     }
 });
 
-mongoose.model("Clue", ClueSchema)
+
+module.exports = mongoose.model('Clues', CluesSchema);
+
+
 
 
 
@@ -40,3 +43,5 @@ mongoose.model("Clue", ClueSchema)
 //             {"occupation"}
 //           ] 
 //  ** PERHAPS HAVE THE tagger RECCOMEND TAG NAMES BASED ON PREVIOUS EXAMPLES **
+
+
