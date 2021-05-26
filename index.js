@@ -1,49 +1,49 @@
-// const mongoose = require("mongoose");// connects node.js env with mongodb server
 
-// mongoose.connect("mongodb://localhost:27017/Prepardy", { useNewUrlParser: true }, (error)=>{
-//     if (!error) {
-        
-//         console.log("Success Connected");
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 
-//     }
-//     else {
+const db = require('./db')
 
-//         console.log("Error connecting to database.")
-             
-//     }
+const app = express()
+const apiPort = 3000
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cors())
+app.use(bodyParser.json())
+
+// var mongoUtil = require('mongoUtil');
+
+// mongoUtil.connectToServer(function (err, client) {
+//     if (err) console.log(err);
+//     // start the rest of your app here
 // });
 
-// mongoose.connect('mongodb://localhost:27017/Prepardy', { useNewUrlParser: true }).
-//     catch(error => handleError(error));
+db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
-
-const connection = require("./model");
-const express = require("express");
-const app = express();
-const path = require("path");
-const expressHandlebars = require("express-handlears");
-const bodyparser = require("body-parser");
-
-app.use(bodyparser.urlenocoded({
-    extended : true
-}));
-
-app.get("/", (req, res)=>{
-    res.send('<h1>Hello World!<h1>')
+app.get('/', (req, res) => {
+    res.send('Hello World!')
 })
 
+app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
 
-// const mongoose = require("mongoose");        // connects node.js env with mongodb server
 
-// mongoose.connect("mongodb://localhost:27017/Prepardy", { useNewUrlParser: true }, (error) => {
-//     if (!error) {
 
-//         console.log("Success Connected");
 
-//     }
-//     else {
 
-//         console.log("Error connecting to database.")
 
-//     }
-// });
+
+// const connection = require("./model");
+// const express = require("express");
+// const app = express();
+// const path = require("path");
+// const expressHandlebars = require("express-handlears");
+// const bodyparser = require("body-parser");
+
+// app.use(bodyparser.urlenocoded({
+//     extended : true
+// }));
+
+// app.get("/", (req, res)=>{
+//     res.send('<h1>Hello World!<h1>')
+// })

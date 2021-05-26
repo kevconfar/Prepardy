@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-var CluesSchema = new mongoose.Schema({
+const CluesSchema = new mongoose.Schema({
     question : {
         type : String
     },
@@ -13,19 +13,26 @@ var CluesSchema = new mongoose.Schema({
     category : {
         type : String
     },
-    correct : {
-        type : Boolean
-    },
-    tags : {
-        type : Array
-    },
     gameID : {
-        type : String
+        type : Number
+    },
+    urlID : {
+        type : Number
+    },
+    correct : {
+        type : Boolean,
+        default : true
     }
 });
 
 
-module.exports = mongoose.model('Clues', CluesSchema);
+// module.exports = mongoose.model('Clues', CluesSchema);
+module.exports = CluesSchema
+
+
+
+
+
 
 
 
