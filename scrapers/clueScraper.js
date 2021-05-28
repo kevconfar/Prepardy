@@ -2,7 +2,9 @@ const cheerio = require("cheerio");
 const axios = require("axios");
 
 
-const Clue = require("../connections/clues")
+const Clue = require("../connections/clues");
+// const Game = require("../connections/games");
+// const CluesSchema = require("../model/clues.model");
 
 function seasonUrls(num) {
     return new Promise(resolve => {
@@ -36,7 +38,23 @@ async function urlFeeder(season) {
     //     // var urls = await seasonUrls(season);
     //     urls.forEach(url => fetchGameData(url))
     // }, 10000)
-    urls.forEach(url => fetchGameData(url))
+
+    // urls.forEach(setTimeout(function () {
+    //     fetchGameData(url)
+    // }), 15000);
+
+    urls.forEach(function (url) {
+
+        setTimeout(function () {
+            fetchGameData(url)
+        }, 10000);
+    
+    })
+
+
+    
+ 
+    // urls.forEach(url => fetchGameData(url))
 }
 
 // takes in season num, index number of url, and creates interval
@@ -52,9 +70,6 @@ const fetchGameData = gameUrl => { // changed gameId to arr
         .then(({ data }) => {
 
             const $ = cheerio.load(data);
-            const clues = [];
-
-            var counter = 0
 
             var gameTitle = parseInt(($("#game_title > h1").text()).substring(6, 10))
 
@@ -67,6 +82,8 @@ const fetchGameData = gameUrl => { // changed gameId to arr
             $(".category_name").each(function () {
                 categories.push($(this).text());
             });
+
+            const clueArr = []
 
             $(".clue").each(function (i, elem) {
 
@@ -82,6 +99,8 @@ const fetchGameData = gameUrl => { // changed gameId to arr
                     category = categories[12];
                 }
 
+
+
                 const clue = cheerio(".clue_text", elem).html();
                 
                 let answer;
@@ -93,32 +112,28 @@ const fetchGameData = gameUrl => { // changed gameId to arr
                     answer = cheerio("em", mouseOverContent).text();
                 }
 
-                const newClue = new Clue({
+                clueArr.push(new Clue({
                     question: clue,
                     answer: answer,
                     category: category,
                     value: value,
                     gameID: gameTitle,
                     urlID: urlId
-                }).save()
 
-                var dashes = "-------------------------"
-                if (counter === 61) {
-                    console.log(`GAME ${urlId} SUCESSFULLY RECORDED`, dashes, "\n")
-                }
+                }))
 
             })
 
+            Clue.insertMany(clueArr)
 
-            // console.log(clues)
-            // console.log(counter, gameTitle)
 
         })
-    // .then(setTimeout(function () {console.log("Episode Recorded")}, 15000))
+        .catch(() => {
+            console.log("GAME ERROR", gameUrl);
+        });
 }
 
-const seasons = [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37]
-seasons.forEach(num => {
-    urlFeeder(num)
-    
-})
+
+
+// urlFeeder(32)
+

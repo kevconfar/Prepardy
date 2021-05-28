@@ -4,19 +4,24 @@ const mongoose = require("mongoose");
 // 5-17: Switched urlID and gameID type to Number
 
 const gamesSchema = new mongoose.Schema({
-    gameID : {
-        type: Number
+    gameID: {
+        type: Number,
+        unique: true
         // required: true
     },
     urlID : {
-        type: Number
+        type: Number,
+        unique: true
         // required: true
     },
     date : {
-        type: String
+        type: String,
     },
     scores : {
         type: Array
+    },
+    season : {
+        type: Number
     }
 });
 
