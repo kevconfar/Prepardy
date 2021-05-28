@@ -4,7 +4,7 @@ import Category from "./Category";
 
 const Categories = props => {
   return (
-    <div className="board" id={'categories'} data-testid="categoryList">
+    <div className="board" id={'categories'} >
       {props.categories.map(category =>
         <Category 
           title = {category.title}

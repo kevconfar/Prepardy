@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 
 const Clue = props => {
-  // show $ value of clue OR
-  // the Clue question itself OR
-  // empty screen if it was already answered
+ 
   return (
     <>
       {props.answered && (
@@ -18,12 +16,11 @@ const Clue = props => {
         >
           <motion.h2 layoutId="expandable-card-h" classname="question">
             <p>{props.question}</p>
-            {/* <input type="text" placeholder="Answer Here!"></input>  */}
-            {/* <Response /> */}
+            
           </motion.h2>
-          {/* <p>{clue.text}</p> */}
+          
 
-          {/* <input className="response" type="text" placeholder="Answer Here!"></input>  */}
+          
         </motion.div>
       )}
       {!props.selected && !props.answered && (

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const Response = (props) => {
   return (
-    <div id={"response"} data-testid="response">
+    <div id={"response"} >
       <input
         type="text"
         placeholder="Answers go here!"
