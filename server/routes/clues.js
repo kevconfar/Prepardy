@@ -1,17 +1,16 @@
 const express = require("express");
 
-const { getClues, createMissedClue, getGameById } = require("../controllers/clues.js")
+const { getCluesById } = require("../controllers/clues.js")
 
 
 
 const router = express.Router();
 
-router.get('/', getClues) 
-router.get('/', getGameById)
+// router.get('/game/:id', getClues) 
 
-router.post('/', createMissedClue) 
+router.get('/game/:id', getCluesById)
+// router.get('game/')
 
+// router.post('/', createMissedClue) 
 
-
-
-export default router;
+module.exports = router

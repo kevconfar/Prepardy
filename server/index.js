@@ -1,4 +1,4 @@
-// const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser') // REMOVED BODY-PARSER B/C ITS DEPRECATED
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
@@ -6,12 +6,10 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 dotenv.config()
 
-// const db = require('./db')
 
-const clueRoutes = require("./routes/clues.js")
+const routes = require("./routes/clues.js")
 
 const app = express()
-// const apiPort = 3000
  
 // app.use(bodyParser.urlencoded({ extended: true }))   DEPRECATED
 // app.use(bodyParser.json())   DEPRECATED
@@ -23,8 +21,18 @@ app.use(express.urlencoded({ extended: true })); // alternate to using bodyParse
 const apiPort = process.env.PORT
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
-    .then(() => app.listen(apiPort, () => console.log(`Server running on port: ${apiPort}`)))
-    .catch((error) => console.log(error.message));
+    .then(() => {
+        // app.use("/api", routes)
+
+        app.listen(5000, () => {
+            console.log(`Server running on port: ${apiPort} `)
+        })
+    })
+
+
+// OLD CONNECT// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+// OLD CONNECT //   .then(() => app.listen(apiPort, () => console.log(`Server running on port: ${apiPort}`)))
+// OLD CONNECT      .catch((error) => console.log(error.message));
 
 
 
@@ -39,3 +47,5 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
 
 
 
+// app.use(bodyParser.urlencoded({ extended: true }))   DEPRECATED
+// app.use(bodyParser.json())   DEPRECATED
