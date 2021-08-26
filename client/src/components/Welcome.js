@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 
 class Welcome extends Component {
@@ -6,9 +7,10 @@ class Welcome extends Component {
     super(props);
 
     this.state = {
-      categories: [],
-      difficulty: [],
-      
+      games: [], // KEVIN: added an array for all the games 
+      categories: [], // KEVIN: Perhaps an array for Selected games?
+      // timer: Boolean
+      // 
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -16,7 +18,16 @@ class Welcome extends Component {
   }
 
   componentDidMount() {
-    // Getting data from an external API
+    axios
+      .get("http://localhost:3000/games/all") // KEVIN: gets ALL games in the Games collection, so user can browse and choose a game
+      .then((response) => { 
+        this.setState({
+          games: response.data // sets the queried Games array to the games state
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
   }
 
   handleCategoryChange = (event) => {

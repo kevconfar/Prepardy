@@ -1,15 +1,16 @@
 const express = require('express')
 const router = express.Router()
-const Clue = require('../connections/clues')
+// const Clue = require('../connections/clues')
 
 
-
-// GET ONE CLUE
-router.get('/questions/:id', async (req, res) => {
+// // GET ONE CLUE
+router.get('/clues/:id', async (req, res) => {
     try {
         const _id = req.params.id
-
         const clue = await Clue.findOne({ _id })
+
+        console.log(clue)
+
         if (!clue) {
             return res.status(404).json({})
         } else {
@@ -19,3 +20,7 @@ router.get('/questions/:id', async (req, res) => {
         return res.status(500).json({ "error": error })
     }
 })
+
+// 
+
+module.exports = router

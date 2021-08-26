@@ -2,7 +2,6 @@ const Clue = require('../model/clues.model')
 
 
 
-
 getClues = async (req, res) => {
     await Clue.find({}, (err, clues) => {
         if (err) {

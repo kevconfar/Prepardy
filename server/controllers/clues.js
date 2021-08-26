@@ -1,58 +1,65 @@
 // THIS FILE CONTAINS ALL THE HANDLERS FOR THE ROUTES
 
 const Clues = require("../connections/clues.js")
-const MissedClues = require("../connections/missedClues.js")
-const Games = require("../connections/games.js")
 
-// gets all clues
-export const getClues = async (req, res) => {
+
+// exports.getCluesByDifficulty()
+// const MissedClues = require("../connections/missedClues.js")
+// const Games = require("../connections/games.js")
+
+// // THOUGHT, MAYBE WE DO NEED SOMETHING LIKE DBO.CONNECT ......
+
+// // CLUE EXTRACTION ROUTE HANDLERS
+
+
+//         // GET ALL CLUES
+// const getClues = async (req, res) => {
+//     try {
+
+//         const clues = await Clues.find();
+//         return res.status(200).json(clues);
+
+//     } catch (error) {
+
+        
+//         res.status(404).json({ message: error.message });   
+//     }
+// }
+
+//         // GET CLUES BY GAMEID
+const getCluesById = async (req, res) => {
+
     try {
 
-        const clues = await Clues.find();
+        const id = req.params.id // ORIGINAL: depends on the ID value being calcuated in the React portion
+        const clues = await Clues.find({ gameID: id }).limit(61)
+        // console.log(clues)
+        
+        // res.send(clues)
         res.status(200).json(clues);
 
     } catch (error) {
 
-        res.status(404).json({ message: error.message });   
+        res.status(404).json({ message: error.message });
     }
 }
 
-// adds docs to MissedClue database
-export const createMissedClue = async (req, res) => {
-
-    const missedClues = req.body; // array of IncorrectClue objects
-
+//         // GET CLUES BY DIFFICULTY
+const getCluesByDifficulty = async (req, res) => {
     try {
 
-        await MissedClues.insertMany(missedClues);
-        res.status(201).json(missedClues);
-
-    } catch (error) {
-        
-        res.status(409).json({ message: error.message });
-    }
-
-}
-
-// gets the next game, grab current ID in React, add 1, then use to get next game
-// can also be used to grab games by ID
-export const getGameById = async (req, res) => {
-
-    try {
-
-        const id = req.params.id
-        const clues = await Clue.find({ gameID: id })
-
+        const diff = req.params.difficulty
+        const clues = await Clues.find({value: diff}).limit(61)
         res.status(200).json(clues);
-        
+
     } catch (error) {
 
-        res.status(404).json({ message: error.message });  
+        res.status(404).json({ message: error.message });
     }
 }
 
 
-
+module.exports = { getCluesById, getCluesByDifficulty }
 
 
 
