@@ -13,13 +13,13 @@ const tester = async (input) => {
 
 const clueArr = []
 
-tester("Coffee").then( value => await clueArr.push(value))
+tester("Coffee").then( value => clueArr.push(value))
 
 console.log(clueArr)
 
-// const capsFinder = (input) => {
+const capsFinder = (input) => {
 
-//     let reg = /\s?([A-Z][a-z]+/
+    let reg = /\s?([A-Z][a-z]+/
     
     
-// }
+}

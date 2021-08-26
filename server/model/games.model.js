@@ -19,7 +19,8 @@ const gamesSchema = new mongoose.Schema({
     },
     season : {
         type: Number
-    }
+    },
+    categories: [String] // AUG 19: Added categories as a field
 });
 
 module.exports = gamesSchema
